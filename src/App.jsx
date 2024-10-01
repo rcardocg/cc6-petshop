@@ -9,6 +9,7 @@ import Catalog from './pages/catalogo'
 import Courier from './pages/elegirCourier'
 import Cart from './pages/carrito'
 import Inventory from './pages/inventario'
+import AddNewItem from './pages/addInventario';
 
 
 export default function App() {
@@ -35,6 +36,7 @@ export default function App() {
         <Route path='courier' element={<Courier />} />;
         <Route path='carrito' element={<Cart />} />;
         <Route path='inventario' element={<Inventory />} />;
+        <Route path='nuevoProducto' element={<AddNewItem />} />;
       </Routes>
     </BrowserRouter>
     </>
