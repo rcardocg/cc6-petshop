@@ -34,6 +34,19 @@ app.post('/api/clientes', async (req, res) => {
     }
 });
 
+// obtener productos
+app.get('/api/productos', async (req, res) => {
+    try {
+        const result = await pool.query(
+            'SELECT * FROM Producto'
+        );
+        res.json(result.rows);
+    } catch (error) {
+        console.error('Error al obtener productos:', error);
+        res.status(500).send('Error en el servidor');
+    }
+});
+
 
 // Iniciar el servidor en el puerto 5000
 const PORT = process.env.PORT || 5000;
