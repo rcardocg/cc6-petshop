@@ -34,6 +34,7 @@ export default function App() {
         <Route path='catalogo' element={<Catalog />} />;
         <Route path='courier' element={<Courier />} />;
         <Route path='carrito' element={<Cart />} />;
+        <Route path='nuevoProducto' element={<AddNewItem />} />;
         <Route path='inventario' element={<Inventory />} />;
       </Routes>
     </BrowserRouter>
