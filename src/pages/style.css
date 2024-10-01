@@ -2,13 +2,16 @@
 
 body {
     font-family: "Poppins", sans-serif;
-    background-color: #DEEFF8;
+    background-image: url('./imagenes/fondo.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     margin: 0;
-    /*vamos a ver si jala*/
+    height: 100vh;
 }
 
 h2 {
-    color: #1c1c1c;
+    color: #364420;
     text-align: center; 
     padding: 1rem;
     font-weight: bolder;
@@ -16,7 +19,7 @@ h2 {
 }
 
 form {
-    background-color: #fff;
+    background-color: #faf2de;
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -27,7 +30,7 @@ form {
 label {
     display: block;
     margin-bottom: 10px;
-    color: #1c1c1c;
+    color: #364420;
     padding-top: 5px;
 }
 
@@ -37,8 +40,9 @@ input[type="password"] {
     width: 100%;
     padding: 6px;
     margin-bottom: 1rem;
-    border: 1px solid #1c1c1c;
+    border: 1px solid #364420;
     border-radius: 8px;
+    background-color: #faf2de;
 }
 label {
     font-weight: bold;
@@ -47,6 +51,7 @@ label {
 input[type="radio"] {
     margin-right: 7px; 
     cursor: pointer;
+    color: #364420;
 }
 
 .radio-admin{
@@ -56,10 +61,18 @@ input[type="radio"] {
     padding-left: 1rem;
 }
 
+.createAccount {
+    color: #72b01d;
+    font-weight: bold; 
+    text-decoration: none;
+}
 
+.createAccount:hover {
+    color: #CC5803; 
+}
 
 button {
-    background-color: #023047 !important;
+    background-color: #CC5803 !important;
     color: white !important;
     border: none !important;
     padding: 5px 10px !important;
@@ -69,7 +82,7 @@ button {
 }
 
 button:hover {
-    background-color: #219EBC !important;
+    background-color: #a5be00 !important;
 }
 
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import '../catalogo/catcss.css';
 
 const Payment = () => {
 
@@ -79,56 +80,55 @@ const Payment = () => {
   return (
     <div>
       <h2>Pago</h2>
-      
 
-      <form id="paymentForm" onSubmit={handleSubmit}>
-        <label htmlFor="cardNumber">Número de Tarjeta:</label>
-        <input
-          type="text"
-          id="cardNumber"
-          name="cardNumber"
-          maxLength="16"
-          value={cardNumber}
-          onChange={(e) => setCardNumber(e.target.value)}
-          required
-        /><br />
+        <form id="paymentForm" onSubmit={handleSubmit}>
+          <label htmlFor="cardNumber">Número de Tarjeta:</label>
+          <input
+            type="text"
+            id="cardNumber"
+            name="cardNumber"
+            maxLength="16"
+            value={cardNumber}
+            onChange={(e) => setCardNumber(e.target.value)}
+            required
+          /><br />
 
-        <label htmlFor="cardName">Nombre del Titular:</label>
-        <input
-          type="text"
-          id="cardName"
-          name="cardName"
-          value={cardName}
-          onChange={(e) => setCardName(e.target.value)}
-          required
-        /><br />
+          <label htmlFor="cardName">Nombre del Titular:</label>
+          <input
+            type="text"
+            id="cardName"
+            name="cardName"
+            value={cardName}
+            onChange={(e) => setCardName(e.target.value)}
+            required
+          /><br />
 
-        <label htmlFor="expiryDate">Fecha de Vencimiento (MM/YY):</label>
-        <input
-          type="text"
-          id="expiryDate"
-          name="expiryDate"
-          maxLength="5"
-          value={expiryDate}
-          onChange={(e) => setExpiryDate(e.target.value)}
-          required
-        /><br />
+          <label htmlFor="expiryDate">Fecha de Vencimiento (MM/YY):</label>
+          <input
+            type="text"
+            id="expiryDate"
+            name="expiryDate"
+            maxLength="5"
+            value={expiryDate}
+            onChange={(e) => setExpiryDate(e.target.value)}
+            required
+          /><br />
 
-        <label htmlFor="securityCode">Código de Seguridad (CVV):</label>
-        <input
-          type="text"
-          id="securityCode"
-          name="securityCode"
-          maxLength="3"
-          value={securityCode}
-          onChange={(e) => setSecurityCode(e.target.value)}
-          required
-        /><br />
-        <p className="monto-total">Monto total a Pagar: Q{total.toFixed(2)}</p>
+          <label htmlFor="securityCode">Código de Seguridad (CVV):</label>
+          <input
+            type="text"
+            id="securityCode"
+            name="securityCode"
+            maxLength="3"
+            value={securityCode}
+            onChange={(e) => setSecurityCode(e.target.value)}
+            required
+          /><br />
+          <p className="monto-total">Monto total a Pagar: Q{total.toFixed(2)}</p>
 
 
-        <button type="submit">Pagar</button>
-      </form>
+          <button type="submit">Pagar</button>
+        </form>
     </div>
   );
 };

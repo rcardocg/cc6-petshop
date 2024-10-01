@@ -7,17 +7,18 @@
 }
 
 .product {
-    background-color: #fff; 
+    background-color: #faf2de; 
     border: none; 
     border-radius: 15px;
     padding: 15px;
     margin: 10px; 
-    
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
     flex: 1 1 calc(25% - 20px);
     max-width: calc(25% - 20px);
 }
+
+
 
 @media (max-width: 1200px) {
     .product {
@@ -45,6 +46,7 @@
     height: 35px;
     align-items: center;
     border-radius: 8px;
+    border-color: #364420;
     width: 400px;
     padding: 1rem;
 
@@ -55,7 +57,7 @@
 }
 
 .monto-total {
-    color: #219EBC; 
+    color: #72b01d; 
     font-weight: bold; 
     text-align: right;
 }
