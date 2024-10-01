@@ -78,15 +78,18 @@ const CrearCuenta = () => {
         />
         <br />
         <label>Tipo de cuenta</label>
-        <br />
+        <div className='radio-admin'>
+        
         <input
           type="radio"
           name="typeRadio"
           value="administrador"
           checked={tipo === 'administrador'}
           onChange={() => setTipo('administrador')}
-        />
+        /> 
         Administrador
+        </div>
+        <div className='radio-user'>
         <input
           type="radio"
           name="typeRadio"
@@ -95,6 +98,7 @@ const CrearCuenta = () => {
           onChange={() => setTipo('usuario')}
         />
         Usuario
+        </div>
         <br />
         <button type="submit" className="button">Ingresar</button>
       </form>

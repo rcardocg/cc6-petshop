@@ -6,7 +6,7 @@ import AdminView from './pages/adminView';
 import Catalog from './catalogo/catalogo';
 import Courier from './pages/elegirCourier';
 import Inventory from './pages/inventario';
-import Payment from './pages/payment';
+import Payment from './payment/payment';
 import CrearCuenta from './pages/crearCuenta';
 
 
