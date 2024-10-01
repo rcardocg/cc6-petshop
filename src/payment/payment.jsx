@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
-const ProcessPayment = () => {
+const Payment = () => {
+
+  const location = useLocation();
+  const { total } = location.state || { total: 0 };
+
   const [cardNumber, setCardNumber] = useState('');
   const [cardName, setCardName] = useState('');
   const [expiryDate, setExpiryDate] = useState('');
   const [securityCode, setSecurityCode] = useState('');
   const [amount, setAmount] = useState('');
-  const [message, setMessage] = useState('');
 
-  // Validación del número de tarjeta (Algoritmo de Luhn)
+  //validacion (Algoritmo de Luhn)
   const validateCardNumber = (cardNumber) => {
     let sum = 0;
     let shouldDouble = false;
@@ -29,20 +33,20 @@ const ProcessPayment = () => {
   };
 
   const validateExpiryDate = (expiryDate) => {
+    const today = new Date();
     const parts = expiryDate.split('/');
+
     if (parts.length !== 2) {
       return false;
     }
 
     const month = parseInt(parts[0], 10);
     const year = parseInt('20' + parts[1], 10);
-    const today = new Date();
-    const currentMonth = today.getMonth() + 1; // getMonth() devuelve el mes de 0 a 11
 
     return (
       month >= 1 &&
       month <= 12 &&
-      (year > today.getFullYear() || (year === today.getFullYear() && month >= currentMonth))
+      (year > today.getFullYear() || (year === today.getFullYear() && month >= today.getMonth() + 1))
     );
   };
 
@@ -50,54 +54,42 @@ const ProcessPayment = () => {
     return /^\d{3,4}$/.test(cvv);
   };
 
-  const handleSubmit = async (event) => {
+  //envío del formulario
+  const handleSubmit = (event) => {
     event.preventDefault();
-    
-    // Validaciones
+
     if (!validateCardNumber(cardNumber)) {
-      setMessage('Número de tarjeta de crédito inválido.');
+      alert('Número de tarjeta de crédito inválido.');
       return;
     }
 
     if (!validateExpiryDate(expiryDate)) {
-      setMessage('Fecha de vencimiento inválida o tarjeta vencida.');
+      alert('Fecha de vencimiento inválida o tarjeta vencida.');
       return;
     }
 
     if (!validateCVV(securityCode)) {
-      setMessage('Código de seguridad inválido.');
+      alert('Código de seguridad inválido.');
       return;
     }
 
-    // URL de la API para la autorización del pago
-    const url = `http://emisor/autorizacion?tarjeta=${cardNumber}&nombre=${cardName}&fecha_venc=${expiryDate}&num_seguridad=${securityCode}&monto=${amount}&tienda=Petstore&formato=json`;
-
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-
-      if (data.autorizacion.status === 'APROBADO') {
-        setMessage(`Pago aprobado. Número de autorización: ${data.autorizacion.numero}`);
-      } else {
-        setMessage('Pago denegado.');
-      }
-    } catch (error) {
-      console.error('Error al procesar el pago:', error);
-      setMessage('Ocurrió un error al procesar el pago.');
-    }
+    alert('Pago exitoso');
   };
 
   return (
     <div>
       <h2>Pago</h2>
-      <form onSubmit={handleSubmit}>
+      
+
+      <form id="paymentForm" onSubmit={handleSubmit}>
         <label htmlFor="cardNumber">Número de Tarjeta:</label>
         <input
           type="text"
           id="cardNumber"
+          name="cardNumber"
+          maxLength="16"
           value={cardNumber}
           onChange={(e) => setCardNumber(e.target.value)}
-          maxLength="16"
           required
         /><br />
 
@@ -105,6 +97,7 @@ const ProcessPayment = () => {
         <input
           type="text"
           id="cardName"
+          name="cardName"
           value={cardName}
           onChange={(e) => setCardName(e.target.value)}
           required
@@ -114,9 +107,10 @@ const ProcessPayment = () => {
         <input
           type="text"
           id="expiryDate"
+          name="expiryDate"
+          maxLength="5"
           value={expiryDate}
           onChange={(e) => setExpiryDate(e.target.value)}
-          maxLength="5"
           required
         /><br />
 
@@ -124,27 +118,19 @@ const ProcessPayment = () => {
         <input
           type="text"
           id="securityCode"
+          name="securityCode"
+          maxLength="3"
           value={securityCode}
           onChange={(e) => setSecurityCode(e.target.value)}
-          maxLength="3"
           required
         /><br />
+        <p className="monto-total">Monto total a Pagar: Q{total.toFixed(2)}</p>
 
-        <label htmlFor="amount">Monto a Pagar:</label>
-        <input
-          type="text"
-          id="amount"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          required
-        /><br />
 
         <button type="submit">Pagar</button>
       </form>
-
-      {message && <p>{message}</p>} {/* Mensaje de éxito o error */}
     </div>
   );
 };
 
-export default ProcessPayment;
+export default Payment;

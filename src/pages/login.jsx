@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './style.css';
+import './style.css'; // Asegúrate de importar tu archivo CSS aquí
 import 'bootstrap/dist/css/bootstrap.min.css'; // Importar Bootstrap
 
 const Login = () => {
@@ -19,21 +19,25 @@ const Login = () => {
 
   return (
     <div className="container">
+    <h2>Inicio de sesión</h2>
       <form onSubmit={handleSubmit}>
-        <h2>Inicio de sesión</h2>
         
+        <label htmlFor="correo">Correo Electrónico:</label>
         <input
           type="text"
-          placeholder="Correo electrónico"
+          id="correo"
+          name="correo"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
         <br />
         
+        <label htmlFor="password">Contraseña:</label>
         <input
           type="password"
-          placeholder="Contraseña"
+          id="Contraseña"
+          name="contraseña"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
