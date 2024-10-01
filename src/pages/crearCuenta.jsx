@@ -1,26 +1,28 @@
 import React, { useState } from 'react';
-import './style.css';
+import './style.css'; // Asegúrate de importar tu archivo CSS aquí
 
 const CrearCuenta = () => {
   const [nombre, setNombre] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [contraseña, setContraseña] = useState('');
   const [telefono, setTelefono] = useState('');
   const [direccion, setDireccion] = useState('');
-  const [tipoCuenta, setTipoCuenta] = useState('usuario'); 
+  const [tipoCuenta, setTipoCuenta] = useState('usuario'); // Valor por defecto a 'usuario'
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     
     const data = {
       nombre,
       email,
-      password,
+      contraseña,
       telefono,
       direccion,
-      tipoCuenta,
+      tipo,
     };
 
+    // Aquí puedes manejar la lógica para enviar los datos al servidor, 
+    // por ejemplo, mediante fetch a "createUser.php".
     console.log('Datos a enviar:', data);
   };
 
@@ -52,7 +54,7 @@ const CrearCuenta = () => {
         <label htmlFor="Password">Contraseña:</label>
         <input
           type="password"
-          id="Password"
+          placeholder="Contraseña"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
@@ -79,26 +81,23 @@ const CrearCuenta = () => {
         />
         <br />
         <label>Tipo de cuenta</label>
-        <div className="radio-admin">
-          <input
-              type="radio"
-              name="typeRadio"
-              value="administrador"
-              checked={tipoCuenta === 'administrador'}
-              onChange={() => setTipoCuenta('administrador')}
-          />
-          Administrador
-        </div>
-        <div className="radio-user">  
-          <input
-              type="radio"
-              name="typeRadio"
-              value="usuario"
-              checked={tipoCuenta === 'usuario'}
-              onChange={() => setTipoCuenta('usuario')}
-          />
-          Usuario
-        </div>
+        <br />
+        <input
+          type="radio"
+          name="typeRadio"
+          value="administrador"
+          checked={tipoCuenta === 'administrador'}
+          onChange={() => setTipoCuenta('administrador')}
+        />
+        Administrador
+        <input
+          type="radio"
+          name="typeRadio"
+          value="usuario"
+          checked={tipoCuenta === 'usuario'}
+          onChange={() => setTipoCuenta('usuario')}
+        />
+        Usuario
         <br />
         <button type="submit" className="button">Ingresar</button>
       </form>

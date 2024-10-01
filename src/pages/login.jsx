@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import './style.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import './style.css'; // Asegúrate de importar tu archivo CSS aquí
+import 'bootstrap/dist/css/bootstrap.min.css'; // Importar Bootstrap
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -48,15 +48,7 @@ const Login = () => {
         <br />
         
         <a href="/crearCuenta">¿No tiene una cuenta?</a>
-      </form>
-      <div className='integrantes'>
-        <strong>Ricardo Caballeros</strong>
-        <br />
-        <strong>Kimberly Hernandez</strong>
-        <br />
-        <strong>Yoselin Mejía</strong>
-      </div>
-      
+      </form>      
     </div>
   );
 };
