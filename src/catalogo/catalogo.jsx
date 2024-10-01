@@ -1,43 +1,50 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import './catcss.css';
 
 const Catalogo = () => {
-  //catálogo de productos
-  const [productos] = useState([
-    { id: 1, nombre: 'Producto 1', precio: 100 },
-    { id: 2, nombre: 'Producto 2', precio: 200 },
-    { id: 3, nombre: 'Producto 3', precio: 150 },
-    { id: 4, nombre: 'Producto 4', precio: 250 },
-    { id: 5, nombre: 'Producto 5', precio: 300 },
-    { id: 6, nombre: 'Producto 6', precio: 180 },
-    { id: 7, nombre: 'Producto 7', precio: 220 },
-    { id: 8, nombre: 'Producto 8', precio: 90 },
-  ]);
- 
+  const [productos, setProductos] = useState([]);
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
-  const [showModal, setShowModal] = useState(false); 
+  const [showModal, setShowModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
 
   const navigate = useNavigate();
 
-  //agregar un producto al carrito
-  const addToCart = (id, price) => {
-    setCart([...cart, { id, price }]);
-    setTotal(total + price);
+  useEffect(() => {
+    const fetchProductos = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/productos");
+        const data = await response.json();
+        const productosEnStock = data.filter(producto => producto.stock > 0);
+        setProductos(productosEnStock);
+      } catch (error) {
+        console.error('Error en búsqueda de productos', error);
+      }
+    };
+
+    fetchProductos();
+  }, []);
+
+  const addToCart = (id, price, name) => {
+    const priceNumber = parseFloat(price.replace(/[^\d.-]/g, ''));
+    
+    // Asegurarse de que se añada un nuevo objeto al carrito con la información completa
+    setCart([...cart, { id, name, price: priceNumber, quantity: 1, totalPrice: priceNumber }]);
+    
+    // Actualiza el total
+    setTotal(prevTotal => prevTotal + priceNumber);
   };
 
   const renderCartItems = () => {
     return cart.map((item, index) => (
       <li key={index}>
-        Producto ID: {item.id} - Precio: Q{item.price}
+        {item.name} - Q{item.price.toFixed(2)}
       </li>
     ));
   };
 
-  // Filtro
   const filteredProducts = productos.filter((producto) =>
     producto.nombre.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -45,7 +52,6 @@ const Catalogo = () => {
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
 
-  // Manejar el pago y pasar el total a la página de pago
   const handleProceedToPayment = () => {
     navigate('/payment', { state: { total: total } });
   };
@@ -60,23 +66,21 @@ const Catalogo = () => {
           placeholder="Buscar productos..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          
         />
-        </div>
+      </div>
 
-        <div className='but'>
+      <div className='but'>
         <Button variant="primary" onClick={handleShow}>
           Ver Carrito
         </Button>
-        </div>
-      
+      </div>
 
       <div id="product-list">
         {filteredProducts.map((producto) => (
           <div className="product" key={producto.id}>
             <h3>{producto.nombre}</h3>
-            <p>Precio: Q{producto.precio}</p>
-            <button onClick={() => addToCart(producto.id, producto.precio)}>
+            <p>Precio: Q{parseFloat(producto.precio.replace(/[^\d.-]/g, '')).toFixed(2)}</p>
+            <button onClick={() => addToCart(producto.id, producto.precio, producto.nombre)}>
               Agregar al Carrito
             </button>
           </div>
@@ -89,7 +93,7 @@ const Catalogo = () => {
         </Modal.Header>
         <Modal.Body>
           <ul id="cart-items">{renderCartItems()}</ul>
-          <p>Total: Q{total}</p>
+          <p>Total: Q{total.toFixed(2)}</p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
@@ -102,7 +106,7 @@ const Catalogo = () => {
           </a>
         </Modal.Footer>
       </Modal>
-</div>
+    </div>
   );
 };
 

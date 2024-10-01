@@ -50,7 +50,7 @@ export default function Inventory() {
                             <td>{producto.nombre}</td>
                             <td>{typeof producto.precio === 'number' ? producto.precio.toFixed(2) : producto.precio}</td>
                             <td>{producto.descripcion}</td>
-                            <td>{producto.stock}</td>
+                            <td>{producto.stock > 0 ? producto.stock : 'Sin stock'}</td>
                         </tr>
                     ))}
                 </tbody>
