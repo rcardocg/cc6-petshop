@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import NavigationBar from './navbar/navbar';
 import Login from './pages/login';
 import AdminView from './pages/adminView';
-import Catalog from './pages/catalogo';
+import Catalog from './catalogo/catalogo';
 import Courier from './pages/elegirCourier';
 import Inventory from './pages/inventario';
 import Payment from './payment/payment';

@@ -1,47 +1,81 @@
 import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
-import './style.css';
+import { useNavigate } from 'react-router-dom';
+import './catcss.css';
 
 const Catalogo = () => {
-  // Definir el catálogo de productos
+  //catálogo de productos
   const [productos] = useState([
     { id: 1, nombre: 'Producto 1', precio: 100 },
     { id: 2, nombre: 'Producto 2', precio: 200 },
-    // Agrega más productos aquí
+    { id: 3, nombre: 'Producto 3', precio: 150 },
+    { id: 4, nombre: 'Producto 4', precio: 250 },
+    { id: 5, nombre: 'Producto 5', precio: 300 },
+    { id: 6, nombre: 'Producto 6', precio: 180 },
+    { id: 7, nombre: 'Producto 7', precio: 220 },
+    { id: 8, nombre: 'Producto 8', precio: 90 },
   ]);
-
-  // Estado para el carrito y el total
+ 
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
-  const [showModal, setShowModal] = useState(false); // Estado para controlar el modal
+  const [showModal, setShowModal] = useState(false); 
+  const [searchTerm, setSearchTerm] = useState('');
 
-  // Función para agregar un producto al carrito
+  const navigate = useNavigate();
+
+  //agregar un producto al carrito
   const addToCart = (id, price) => {
     setCart([...cart, { id, price }]);
     setTotal(total + price);
   };
 
-  // Función para renderizar el carrito
   const renderCartItems = () => {
     return cart.map((item, index) => (
       <li key={index}>
-        Producto ID: {item.id} - Precio: ${item.price}
+        Producto ID: {item.id} - Precio: Q{item.price}
       </li>
     ));
   };
 
-  // Controlar la apertura y cierre del modal
+  // Filtro
+  const filteredProducts = productos.filter((producto) =>
+    producto.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
+
+  // Manejar el pago y pasar el total a la página de pago
+  const handleProceedToPayment = () => {
+    navigate('/payment', { state: { total: total } });
+  };
 
   return (
     <div>
       <h2>Productos</h2>
+
+      <div className="filtro">
+        <input
+          type="text"
+          placeholder="Buscar productos..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          
+        />
+        </div>
+
+        <div className='but'>
+        <Button variant="primary" onClick={handleShow}>
+          Ver Carrito
+        </Button>
+        </div>
+      
+
       <div id="product-list">
-        {productos.map((producto) => (
+        {filteredProducts.map((producto) => (
           <div className="product" key={producto.id}>
             <h3>{producto.nombre}</h3>
-            <p>Precio: ${producto.precio}</p>
+            <p>Precio: Q{producto.precio}</p>
             <button onClick={() => addToCart(producto.id, producto.precio)}>
               Agregar al Carrito
             </button>
@@ -49,31 +83,26 @@ const Catalogo = () => {
         ))}
       </div>
 
-      <Button variant="primary" onClick={handleShow}>
-        Ver Carrito
-      </Button>
-
-      {/* Modal para el carrito */}
       <Modal show={showModal} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Carrito de Compras</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <ul id="cart-items">{renderCartItems()}</ul>
-          <p>Total: ${total}</p>
+          <p>Total: Q{total}</p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Cerrar
           </Button>
           <a href="/payment">
-            <Button variant="primary" onClick={handleClose}>
+            <Button variant="primary" onClick={handleProceedToPayment}>
               Proceder al Pago
             </Button>
           </a>
         </Modal.Footer>
       </Modal>
-    </div>
+</div>
   );
 };
 

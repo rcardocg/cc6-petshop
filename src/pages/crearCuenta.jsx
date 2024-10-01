@@ -28,41 +28,51 @@ const CrearCuenta = () => {
     <div className="container">
       <h2>Crear cuenta</h2>
       <form onSubmit={handleSubmit}>
+
+        <label htmlFor="Name">Nombre:</label>
         <input
           type="text"
-          placeholder="Ingrese su nombre"
+          id="Name"
           value={nombre}
           onChange={(e) => setNombre(e.target.value)}
           required
         />
         <br />
+
+        <label htmlFor="Email">Correo Electrónico:</label>
         <input
           type="email"
-          placeholder="Correo electrónico"
+          id="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
         <br />
+
+        <label htmlFor="Password">Contraseña:</label>
         <input
           type="password"
-          placeholder="Contraseña"
+          id="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
         <br />
+
+        <label htmlFor="Phone">Número de Teléfono:</label>
         <input
           type="text"
-          placeholder="Número de teléfono"
+          id="Phone"
           value={telefono}
           onChange={(e) => setTelefono(e.target.value)}
           required
         />
         <br />
+
+        <label htmlFor="Direccion">Dirección:</label>
         <input
           type="text"
-          placeholder="Dirección"
+          id="Direccion"
           value={direccion}
           onChange={(e) => setDireccion(e.target.value)}
           required

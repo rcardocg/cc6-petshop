@@ -22,19 +22,22 @@ const Login = () => {
     <h2>Inicio de sesión</h2>
       <form onSubmit={handleSubmit}>
         
-        
+        <label htmlFor="correo">Correo Electrónico:</label>
         <input
           type="text"
-          placeholder="Correo electrónico"
+          id="correo"
+          name="correo"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
         <br />
         
+        <label htmlFor="password">Contraseña:</label>
         <input
           type="password"
-          placeholder="Contraseña"
+          id="Contraseña"
+          name="contraseña"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required

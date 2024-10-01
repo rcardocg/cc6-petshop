@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-
-
+import { useLocation } from 'react-router-dom';
 
 const Payment = () => {
+
+  const location = useLocation();
+  const { total } = location.state || { total: 0 };
+
   const [cardNumber, setCardNumber] = useState('');
   const [cardName, setCardName] = useState('');
   const [expiryDate, setExpiryDate] = useState('');
@@ -76,6 +79,8 @@ const Payment = () => {
   return (
     <div>
       <h2>Pago</h2>
+      
+
       <form id="paymentForm" onSubmit={handleSubmit}>
         <label htmlFor="cardNumber">Número de Tarjeta:</label>
         <input
@@ -119,16 +124,8 @@ const Payment = () => {
           onChange={(e) => setSecurityCode(e.target.value)}
           required
         /><br />
+        <p className="monto-total">Monto total a Pagar: Q{total.toFixed(2)}</p>
 
-        <label htmlFor="amount">Monto a Pagar:</label>
-        <input
-          type="text"
-          id="amount"
-          name="amount"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          required
-        /><br />
 
         <button type="submit">Pagar</button>
       </form>
