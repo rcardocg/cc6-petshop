@@ -87,7 +87,13 @@ const Catalogo = () => {
         ))}
       </div>
 
-      <Modal show={showModal} onHide={handleClose}>
+      <Modal 
+        show={showModal} 
+        onHide={handleClose} 
+        size="lg" 
+        centered
+        dialogClassName='custom-modal'
+      >
         <Modal.Header closeButton>
           <Modal.Title>Carrito de Compras</Modal.Title>
         </Modal.Header>
@@ -99,11 +105,9 @@ const Catalogo = () => {
           <Button variant="secondary" onClick={handleClose}>
             Cerrar
           </Button>
-          <a href="/payment">
             <Button variant="primary" onClick={handleProceedToPayment}>
               Proceder al Pago
             </Button>
-          </a>
         </Modal.Footer>
       </Modal>
     </div>
