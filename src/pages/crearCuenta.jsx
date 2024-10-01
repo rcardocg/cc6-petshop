@@ -1,30 +1,36 @@
 import React, { useState } from 'react';
-import './style.css'; // Asegúrate de importar tu archivo CSS aquí
+import './style.css';
+import axios from 'axios';
 
 const CrearCuenta = () => {
   // Estados para manejar los campos del formulario
   const [nombre, setNombre] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [contraseña, setContraseña] = useState('');
   const [telefono, setTelefono] = useState('');
   const [direccion, setDireccion] = useState('');
-  const [tipoCuenta, setTipoCuenta] = useState('usuario'); // Valor por defecto a 'usuario'
+  const [tipo, setTipo] = useState('usuario'); // Valor por defecto a 'usuario'
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     
     const data = {
       nombre,
       email,
-      password,
+      contraseña,
       telefono,
       direccion,
-      tipoCuenta,
+      tipo,
     };
 
-    // Aquí puedes manejar la lógica para enviar los datos al servidor, 
-    // por ejemplo, mediante fetch a "createUser.php".
-    console.log('Datos a enviar:', data);
+    try {
+      const response = await axios.post('http://localhost:5000/api/clientes', data);
+      console.log('Cliente registrado:', response.data);
+      alert('Cuenta creada exitosamente');
+    } catch (error) {
+      console.error('Error al registrar la cuenta:', error);
+      alert('Error al crear la cuenta');
+    }
   };
 
   return (
@@ -50,8 +56,8 @@ const CrearCuenta = () => {
         <input
           type="password"
           placeholder="Contraseña"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={contraseña}
+          onChange={(e) => setContraseña(e.target.value)}
           required
         />
         <br />
@@ -77,16 +83,16 @@ const CrearCuenta = () => {
           type="radio"
           name="typeRadio"
           value="administrador"
-          checked={tipoCuenta === 'administrador'}
-          onChange={() => setTipoCuenta('administrador')}
+          checked={tipo === 'administrador'}
+          onChange={() => setTipo('administrador')}
         />
         Administrador
         <input
           type="radio"
           name="typeRadio"
           value="usuario"
-          checked={tipoCuenta === 'usuario'}
-          onChange={() => setTipoCuenta('usuario')}
+          checked={tipo === 'usuario'}
+          onChange={() => setTipo('usuario')}
         />
         Usuario
         <br />
