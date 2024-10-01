@@ -37,46 +37,53 @@ const CrearCuenta = () => {
     <div className="container">
       <h2>Crear cuenta</h2>
       <form onSubmit={handleSubmit}>
+
+      <label htmlFor="Name">Nombre:</label>
         <input
           type="text"
-          placeholder="Ingrese su nombre"
           value={nombre}
           onChange={(e) => setNombre(e.target.value)}
           required
         />
         <br />
+
+        <label htmlFor="Email">Correo Electrónico:</label>
         <input
           type="email"
-          placeholder="Correo electrónico"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
         <br />
+
+        <label htmlFor="Password">Contraseña:</label>
         <input
           type="password"
-          placeholder="Contraseña"
           value={contraseña}
           onChange={(e) => setContraseña(e.target.value)}
           required
         />
         <br />
+
+        <label htmlFor="Phone">Número de teléfono:</label>
         <input
           type="text"
-          placeholder="Número de teléfono"
           value={telefono}
           onChange={(e) => setTelefono(e.target.value)}
           required
         />
         <br />
+
+        <label htmlFor="Adress">Dirección:</label>
         <input
           type="text"
-          placeholder="Dirección"
           value={direccion}
           onChange={(e) => setDireccion(e.target.value)}
           required
         />
         <br />
+
+        
         <label>Tipo de cuenta</label>
         <div className='radio-admin'>
         

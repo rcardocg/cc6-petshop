@@ -1,10 +1,11 @@
 .navbar {
-    background-color: #023047;
+    background-color: #CC5803;
     padding-left: 1rem;
 }
 
 .nav-link:hover {
-    color: #FB8500;
+    color: #72b01d;
+    transition: color 0.3s ease;
 }
 
 .nav-link {
