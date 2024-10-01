@@ -1,19 +1,22 @@
-.navbar{
+.navbar {
     background-color: #023047;
     padding-left: 1rem;
-    
 }
 
 .nav-link:hover {
-    color: #FB8500; /* Color del texto al pasar el ratón */
+    color: #FB8500;
 }
 
 .nav-link {
-    color: #ffffff; 
+    color: #ffffff;
     transition: color 0.3s ease;
 }
 
-.nav-link.active {
-    color: #219EBC; /* Cambia este color al que desees */
-    font-weight: bold; /* Puedes hacer que el texto sea negrita si lo deseas */
+@media (max-width: 991px) { 
+    .navbar {
+        padding: 0.5rem 1rem; 
+    }
+    .nav-link {
+        margin: 5px 0; 
+    }
 }
