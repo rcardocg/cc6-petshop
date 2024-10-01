@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import './style.css'; // Asegúrate de importar tu archivo CSS aquí.
 
-const Payment = () => {
+const ProcessPayment = () => {
   const [cardNumber, setCardNumber] = useState('');
   const [cardName, setCardName] = useState('');
   const [expiryDate, setExpiryDate] = useState('');
   const [securityCode, setSecurityCode] = useState('');
   const [amount, setAmount] = useState('');
+  const [message, setMessage] = useState('');
 
-  // Validación tarjeta de crédito (Algoritmo de Luhn)
+  //(Algoritmo de Luhn)
   const validateCardNumber = (cardNumber) => {
     let sum = 0;
     let shouldDouble = false;
@@ -29,20 +29,20 @@ const Payment = () => {
   };
 
   const validateExpiryDate = (expiryDate) => {
-    const today = new Date();
     const parts = expiryDate.split('/');
-
     if (parts.length !== 2) {
       return false;
     }
 
     const month = parseInt(parts[0], 10);
     const year = parseInt('20' + parts[1], 10);
+    const today = new Date();
+    const currentMonth = today.getMonth() + 1;
 
     return (
       month >= 1 &&
       month <= 12 &&
-      (year > today.getFullYear() || (year === today.getFullYear() && month >= today.getMonth() + 1))
+      (year > today.getFullYear() || (year === today.getFullYear() && month >= currentMonth))
     );
   };
 
@@ -50,40 +50,53 @@ const Payment = () => {
     return /^\d{3,4}$/.test(cvv);
   };
 
-  // Manejar el envío del formulario
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-
+    
     if (!validateCardNumber(cardNumber)) {
-      alert('Número de tarjeta de crédito inválido.');
+      setMessage('Número de tarjeta de crédito inválido.');
       return;
     }
 
     if (!validateExpiryDate(expiryDate)) {
-      alert('Fecha de vencimiento inválida o tarjeta vencida.');
+      setMessage('Fecha de vencimiento inválida o tarjeta vencida.');
       return;
     }
 
     if (!validateCVV(securityCode)) {
-      alert('Código de seguridad inválido.');
+      setMessage('Código de seguridad inválido.');
       return;
     }
 
-    alert('Pago exitoso'); // Aquí puedes procesar el pago o redirigir a otra página.
+    // URL de la API para la autorización del pago
+    const url = `http://emisor/autorizacion?tarjeta=${cardNumber}&nombre=${cardName}&fecha_venc=${expiryDate}&num_seguridad=${securityCode}&monto=${amount}&tienda=Petstore&formato=json`;
+
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+
+      if (data.autorizacion.status === 'APROBADO') {
+        setMessage(`Pago aprobado. Número de autorización: ${data.autorizacion.numero}`);
+      } else {
+        setMessage('Pago denegado.');
+      }
+    } catch (error) {
+      console.error('Error al procesar el pago:', error);
+      setMessage('Ocurrió un error al procesar el pago.');
+    }
   };
 
   return (
     <div>
       <h2>Pago</h2>
-      <form id="paymentForm" onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <label htmlFor="cardNumber">Número de Tarjeta:</label>
         <input
           type="text"
           id="cardNumber"
-          name="cardNumber"
-          maxLength="16"
           value={cardNumber}
           onChange={(e) => setCardNumber(e.target.value)}
+          maxLength="16"
           required
         /><br />
 
@@ -91,7 +104,6 @@ const Payment = () => {
         <input
           type="text"
           id="cardName"
-          name="cardName"
           value={cardName}
           onChange={(e) => setCardName(e.target.value)}
           required
@@ -101,10 +113,9 @@ const Payment = () => {
         <input
           type="text"
           id="expiryDate"
-          name="expiryDate"
-          maxLength="5"
           value={expiryDate}
           onChange={(e) => setExpiryDate(e.target.value)}
+          maxLength="5"
           required
         /><br />
 
@@ -112,10 +123,9 @@ const Payment = () => {
         <input
           type="text"
           id="securityCode"
-          name="securityCode"
-          maxLength="3"
           value={securityCode}
           onChange={(e) => setSecurityCode(e.target.value)}
+          maxLength="3"
           required
         /><br />
 
@@ -123,7 +133,6 @@ const Payment = () => {
         <input
           type="text"
           id="amount"
-          name="amount"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
           required
@@ -131,8 +140,10 @@ const Payment = () => {
 
         <button type="submit">Pagar</button>
       </form>
+
+      {message && <p>{message}</p>}
     </div>
   );
 };
 
-export default Payment;
+export default ProcessPayment;

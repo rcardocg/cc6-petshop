@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import './style.css'; // Asegúrate de importar tu archivo CSS aquí
-import 'bootstrap/dist/css/bootstrap.min.css'; // Importar Bootstrap
+import './style.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -14,15 +14,14 @@ const Login = () => {
       password,
     };
 
-    // Aquí puedes manejar la lógica para enviar los datos al servidor,
-    // por ejemplo, mediante fetch a "sesion.php".
     console.log('Datos a enviar:', data);
   };
 
   return (
     <div className="container">
+    <h2>Inicio de sesión</h2>
       <form onSubmit={handleSubmit}>
-        <h2>Inicio de sesión</h2>
+        
         
         <input
           type="text"

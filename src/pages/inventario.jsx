@@ -4,7 +4,7 @@ import { Form, Table } from "react-bootstrap";
 export default function Inventory(){
     return(
         <>
-        <Form.Label>Inventario</Form.Label>
+        <h2>Inventario</h2>
         <Table>
             <thead>
                 <tr>

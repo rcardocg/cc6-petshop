@@ -4,12 +4,13 @@ body {
     font-family: "Poppins", sans-serif;
     background-color: #f1f1f1;
     margin: 0;
-    padding: 20px;
+    
 }
 
 h2 {
     color: #1c1c1c;
-   text-align: center; 
+    text-align: center; 
+    padding: 1rem;
 }
 
 form {
@@ -36,15 +37,32 @@ input[type="password"] {
     border: 1px solid #1c1c1c;
     border-radius: 8px;
 }
+label {
+    font-weight: bold;
+}
+
+input[type="radio"] {
+    margin-right: 7px; 
+    cursor: pointer;
+}
+
+.radio-admin{
+    padding-left: 1rem;
+}
+.radio-user{
+    padding-left: 1rem;
+}
+
 
 
 button {
     background-color: #023047 !important;
     color: white !important;
     border: none !important;
-    padding: 10px 15px !important;
+    padding: 5px 10px !important;
     cursor: pointer !important;
     border-radius: 10px !important;
+    margin-bottom: 1rem;
 }
 
 button:hover {
