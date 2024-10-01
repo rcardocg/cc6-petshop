@@ -27,23 +27,42 @@ label {
     color: #1c1c1c;
 }
 
-input[type="text"] {
+input[type="text"],
+input[type="email"],
+input[type="password"] {
     width: 100%;
     padding: 6px;
     margin-bottom: 10px;
     border: 1px solid #1c1c1c;
-    border-radius: 5px;
+    border-radius: 8px;
 }
 
+
 button {
-    background-color: #023047;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-    border-radius: 10px;
+    background-color: #023047 !important;
+    color: white !important;
+    border: none !important;
+    padding: 10px 15px !important;
+    cursor: pointer !important;
+    border-radius: 10px !important;
 }
 
 button:hover {
-    background-color: #219EBC;
+    background-color: #219EBC !important;
 }
+
+
+
+
+
+
+
+
+
+.integrantes {
+    margin-top: 20px;  /* Espaciado superior */
+    padding: 10px;     /* Espaciado interno */
+    color: #023047;
+    text-align: center;
+}
+

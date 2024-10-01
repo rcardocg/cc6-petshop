@@ -22,7 +22,7 @@ const Login = () => {
   return (
     <div className="container">
       <form onSubmit={handleSubmit}>
-        <h1>Inicio de sesión</h1>
+        <h2>Inicio de sesión</h2>
         
         <input
           type="text"
@@ -42,19 +42,19 @@ const Login = () => {
         />
         <br />
         
-        <button type="submit" className="btn btn-primary">Ingresar</button>
+        <button type="submit" className="button">Ingresar</button>
         <br />
         
         <a href="/crearCuenta">¿No tiene una cuenta?</a>
       </form>
-
-      <div>
+      <div className='integrantes'>
         <strong>Ricardo Caballeros</strong>
         <br />
         <strong>Kimberly Hernandez</strong>
         <br />
         <strong>Yoselin Mejía</strong>
       </div>
+      
     </div>
   );
 };

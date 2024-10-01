@@ -1,0 +1,8 @@
+.navbar{
+    background-color: #023047;
+}
+
+.nav-link {
+    color: #ffffff; 
+    transition: color 0.3s ease;
+}

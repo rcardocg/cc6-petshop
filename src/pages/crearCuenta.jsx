@@ -29,7 +29,7 @@ const CrearCuenta = () => {
 
   return (
     <div className="container">
-      <h1>Crear cuenta</h1>
+      <h2>Crear cuenta</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -90,16 +90,10 @@ const CrearCuenta = () => {
         />
         Usuario
         <br />
-        <button type="submit" className="btn btn-primary">Ingresar</button>
+        <button type="submit" className="button">Ingresar</button>
       </form>
 
-      <div>
-        <strong>Ricardo Caballeros</strong>
-        <br />
-        <strong>Kimberly Hernandez</strong>
-        <br />
-        <strong>Yoselin Mejía</strong>
-      </div>
+      
     </div>
   );
 };
