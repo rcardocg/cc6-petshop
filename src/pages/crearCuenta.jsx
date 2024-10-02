@@ -29,6 +29,7 @@ const CrearCuenta = () => {
       telefono,
       direccion,
       tipo,
+      postal,
     };
 
     try {

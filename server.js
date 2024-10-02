@@ -20,12 +20,12 @@ const pool = new Pool({
 
 // nuevo cliente
 app.post('/api/clientes', async (req, res) => {
-    const { nombre, email, contraseña, telefono, direccion, tipo } = req.body;
+    const { nombre, email, contraseña, telefono, direccion, tipo, postal } = req.body;
 
     try {
         const result = await pool.query(
-            'INSERT INTO Clientes (nombre, email, contraseña, telefono, direccion, tipo) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
-            [nombre, email, contraseña, telefono, direccion, tipo]
+            'INSERT INTO Clientes (nombre, email, contraseña, telefono, direccion, tipo, postal) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
+            [nombre, email, contraseña, telefono, direccion, tipo, postal]
         );
         res.json(result.rows[0]); 
     } catch (error) {
