@@ -53,9 +53,10 @@ const Catalogo = () => {
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
 
-  const handleProceedToPayment = () => {
-    navigate('/payment', { state: { total: total } });
+  const handleProceedToCourier = () => {
+    navigate('/courier', { state: { total: total } }); 
   };
+  
 
   return (
     <div>
@@ -111,8 +112,8 @@ const Catalogo = () => {
           <Button variant="secondary" onClick={handleClose}>
             Cerrar
           </Button>
-            <Button variant="primary" onClick={handleProceedToPayment}>
-              Proceder al Pago
+            <Button variant="primary" onClick={handleProceedToCourier}>
+            Proceder al Courier
             </Button>
         </Modal.Footer>
       </Modal>

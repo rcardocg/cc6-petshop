@@ -1,55 +1,90 @@
-import { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Form, Button } from 'react-bootstrap';
 
 export default function Courier() {
-  const [destino, setDestino] = useState("");
-  const [formato, setFormato] = useState("json"); // JSON por defecto
+  const location = useLocation();
+  const { total, email } = location.state || { total: 0, email: '' }; // Recibe el email del usuario loggeado
+  const [destino, setDestino] = useState(''); // Almacenará el código postal
+  const [formato, setFormato] = useState('json');
+  const [postal, setPostal] = useState('');
+  const [courier, setCourier] = useState(''); // Almacenará el courier seleccionado
+  const navigate = useNavigate();
+
+  // Opciones de courier (ejemplos)
+  const courierOptions = [
+    { value: 'C1', label: 'Courier 1' },
+    { value: 'C2', label: 'Courier 2' },
+    { value: 'C3', label: 'Courier 3' },
+  ];
+
+  useEffect(() => {
+    const fetchPostal = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/api/getPostal?email=${email}`);
+        const data = await response.json();
+        if (data.postal) {
+          setPostal(data.postal);
+          setDestino(data.postal); // Setear el destino automáticamente al código postal
+        }
+      } catch (error) {
+        console.error('Error al obtener el código postal', error);
+      }
+    };
+
+    if (email) {
+      fetchPostal();
+    }
+  }, [email]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Crear la URL con los parámetros que ha dado el usuario
-    const url = `http://courrier/consulta?destino=${destino}&formato=${formato}`;
-    
-    // Simular el envío de la solicitud en la consola (luego puedes hacer una solicitud real con fetch)
+    const url = `http://courrier/consulta?destino=${destino}&formato=${formato}&courier=${courier}`;
     console.log("Enviando solicitud a URL:", url);
+  };
 
-    // Aquí puedes implementar el envío real con fetch
-    // fetch(url)
-    //   .then((response) => response.json())
-    //   .then((data) => console.log('Respuesta del servidor:', data))
-    //   .catch((error) => console.error('Error en la solicitud:', error));
+  const handleProceedToPayment = () => {
+    navigate('/payment', { state: { total: total } });
   };
 
   return (
     <>
       <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="destinoInput">
-          <Form.Label>Destino</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Código de destino"
-            value={destino}
-            onChange={(e) => setDestino(e.target.value)}
-          />
-        </Form.Group>
-
-        <Form.Group controlId="formatoSelect">
-          <Form.Label>Formato de respuesta</Form.Label>
+        <Form.Group controlId="courierSelect">
+          <Form.Label>Elegir Courier</Form.Label>
           <Form.Control
             as="select"
-            value={formato}
-            onChange={(e) => setFormato(e.target.value)}
+            value={courier}
+            onChange={(e) => setCourier(e.target.value)}
           >
-            <option value="json">JSON</option>
-            <option value="xml">XML</option>
+            <option value="">Seleccione un courier</option>
+            {courierOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
           </Form.Control>
+        </Form.Group>
+
+        <Form.Group controlId="postalInput">
+          <Form.Label>Código Postal</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Código postal del usuario"
+            value={postal}
+            readOnly
+          />
         </Form.Group>
 
         <Button variant="primary" type="submit">
           Consultar Costo de Envío
         </Button>
       </Form>
+
+      <br />
+      <Button variant="success" onClick={handleProceedToPayment}>
+        Proceder al Pago
+      </Button>
     </>
   );
 }

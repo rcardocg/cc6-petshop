@@ -20,12 +20,12 @@ const pool = new Pool({
 
 // nuevo cliente
 app.post('/api/clientes', async (req, res) => {
-    const { nombre, email, contraseña, telefono, direccion, tipo } = req.body;
+    const { nombre, email, contraseña, telefono, direccion, tipo, postal } = req.body;
 
     try {
         const result = await pool.query(
-            'INSERT INTO Clientes (nombre, email, contraseña, telefono, direccion, tipo) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
-            [nombre, email, contraseña, telefono, direccion, tipo]
+            'INSERT INTO Clientes (nombre, email, contraseña, telefono, direccion, tipo, postal) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
+            [nombre, email, contraseña, telefono, direccion, tipo, postal]
         );
         res.json(result.rows[0]); 
     } catch (error) {
@@ -84,6 +84,21 @@ app.get('/api/productos', async (req, res) => {
         res.json(result.rows);
     } catch (error) {
         console.error('Error al obtener productos:', error);
+        res.status(500).send('Error en el servidor');
+    }
+});
+
+app.get('/api/getPostal', async (req, res) => {
+    const { email } = req.query;
+    try {
+        const result = await pool.query('SELECT postal FROM Clientes WHERE email = $1', [email]);
+        if (result.rows.length > 0) {
+            res.json({ postal: result.rows[0].postal })
+        } else{
+            res.status(404).json({ message: 'Usuario no encontrado' });
+        }
+    } catch (err) {
+        console.error(err.message);
         res.status(500).send('Error en el servidor');
     }
 });
