@@ -9,10 +9,18 @@ const CrearCuenta = () => {
   const [contraseña, setContraseña] = useState('');
   const [telefono, setTelefono] = useState('');
   const [direccion, setDireccion] = useState('');
+  const [postal, setPostal] = useState('');
   const [tipo, setTipo] = useState('usuario'); // Valor por defecto a 'usuario'
+  const [error, setError] = useState('');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    const postalRegex = /^\d{5}$/; // Expresión regular para 5 dígitos
+    if (!postalRegex.test(postal)) {
+      setError('El código postal debe contener exactamente 5 dígitos.');
+      return;
+    }
     
     const data = {
       nombre,
@@ -27,6 +35,7 @@ const CrearCuenta = () => {
       const response = await axios.post('http://localhost:5000/api/clientes', data);
       console.log('Cliente registrado:', response.data);
       alert('Cuenta creada exitosamente');
+      setError('');
     } catch (error) {
       console.error('Error al registrar la cuenta:', error);
       alert('Error al crear la cuenta');
@@ -82,6 +91,16 @@ const CrearCuenta = () => {
           required
         />
         <br />
+
+        <label htmlFor="Postal">Código Postal:</label>
+        <input
+          type="text"
+          value={postal}
+          onChange={(e) => setPostal(e.target.value)}
+          required
+        />
+        <br />
+        {error && <p style={{ color: 'red' }}>{error}</p>}
 
         
         <label>Tipo de cuenta</label>
