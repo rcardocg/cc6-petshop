@@ -60,6 +60,21 @@ app.get('/api/productos', async (req, res) => {
     }
 });
 
+app.get('/api/getPostal', async (req, res) => {
+    const { email } = req.query;
+    try {
+        const result = await pool.query('SELECT postal FROM Clientes WHERE email = $1', [email]);
+        if (result.rows.length > 0) {
+            res.json({ postal: result.rows[0].postal })
+        } else{
+            res.status(404).json({ message: 'Usuario no encontrado' });
+        }
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Error en el servidor');
+    }
+});
+
 
 // Iniciar el servidor en el puerto 5000
 const PORT = process.env.PORT || 5000;
