@@ -8,6 +8,8 @@ import Courier from './pages/elegirCourier';
 import Inventory from './pages/inventario';
 import Payment from './payment/payment';
 import CrearCuenta from './pages/crearCuenta';
+import CreateProduct from './pages/crearProducto';
+import Users from './pages/usuarios';
 
 
 export default function App() {
@@ -20,8 +22,10 @@ export default function App() {
         <Route path='catalogo' element={<Catalog />} />
         <Route path='courier' element={<Courier />} />
         <Route path='inventario' element={<Inventory />} />
-        <Route path='payment' element={<Payment />} />
-        <Route path='crearCuenta' element={<CrearCuenta />} />
+        <Route path='payment' element={<Payment />} />;
+        <Route path='crearCuenta' element={<CrearCuenta />} />;
+        <Route path='usuarios' element={<Users />} />;
+        <Route path='crearproducto' element={<CreateProduct />} />;
       </Routes>
     
     </BrowserRouter>
