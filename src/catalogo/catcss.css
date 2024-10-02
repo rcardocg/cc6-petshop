@@ -77,3 +77,14 @@
     font-weight: bold; 
     text-align: right;
 }
+
+.image-container {
+    display: grid;
+    place-items: center;
+    padding-top: 1rem;
+}
+
+.catalog-image {
+    max-width: 300px; 
+    
+}

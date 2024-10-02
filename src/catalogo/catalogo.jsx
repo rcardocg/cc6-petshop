@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import petsandtrails from './petsandtrails.png';
 import './catcss.css';
 
 const Catalogo = () => {
@@ -58,6 +59,11 @@ const Catalogo = () => {
 
   return (
     <div>
+      
+      <div className="image-container">
+        <img src={petsandtrails} alt="Imagen de Productos" className="catalog-image" />
+      </div>
+      
       <h2>Productos</h2>
 
       <div className="filtro">
