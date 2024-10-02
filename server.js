@@ -30,9 +30,22 @@ app.post('/api/clientes', async (req, res) => {
         res.json(result.rows[0]); 
     } catch (error) {
         console.error('Error al insertar cliente:', error);
+        console.log(error)
         res.status(500).send('Error en el servidor');
     }
 });
+
+// Obtener todos los clientes
+app.get('/api/clientes', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM Clientes');
+        res.json(result.rows);
+    } catch (error) {
+        console.error('Error al obtener clientes:', error);
+        res.status(500).send('Error en el servidor');
+    }
+});
+
 
 // obtener productos
 app.get('/api/productos', async (req, res) => {

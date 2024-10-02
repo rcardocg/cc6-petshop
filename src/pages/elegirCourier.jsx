@@ -1,24 +1,22 @@
-import { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { Form, Button } from 'react-bootstrap';
 
 export default function Courier() {
-  const [destino, setDestino] = useState("");
-  const [formato, setFormato] = useState("json"); // JSON por defecto
+  const location = useLocation();
+  const { total } = location.state || { total: 0 }; // Obtener el total desde el catálogo
+  const [destino, setDestino] = useState('');
+  const [formato, setFormato] = useState('json');
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Crear la URL con los parámetros que ha dado el usuario
     const url = `http://courrier/consulta?destino=${destino}&formato=${formato}`;
-    
-    // Simular el envío de la solicitud en la consola (luego puedes hacer una solicitud real con fetch)
     console.log("Enviando solicitud a URL:", url);
+  };
 
-    // Aquí puedes implementar el envío real con fetch
-    // fetch(url)
-    //   .then((response) => response.json())
-    //   .then((data) => console.log('Respuesta del servidor:', data))
-    //   .catch((error) => console.error('Error en la solicitud:', error));
+  const handleProceedToPayment = () => {
+    navigate('/payment', { state: { total: total } }); // Redirige a la pantalla de pago con el total
   };
 
   return (
@@ -50,6 +48,11 @@ export default function Courier() {
           Consultar Costo de Envío
         </Button>
       </Form>
+
+      <br />
+      <Button variant="success" onClick={handleProceedToPayment}>
+        Proceder al Pago
+      </Button>
     </>
   );
 }
