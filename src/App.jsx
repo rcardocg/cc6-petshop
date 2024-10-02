@@ -17,17 +17,17 @@ export default function App() {
     <BrowserRouter>
       <NavigationBar />
       <Routes>
-        <Route index element={<Login />} />
+        <Route index element={<Catalog />} />
         <Route path='Admin' element={<AdminView />} />
-        <Route path='catalogo' element={<Catalog />} />
         <Route path='courier' element={<Courier />} />
         <Route path='inventario' element={<Inventory />} />
         <Route path='payment' element={<Payment />} />;
+        <Route path='Login' element={<Login />} />;
         <Route path='crearCuenta' element={<CrearCuenta />} />;
         <Route path='usuarios' element={<Users />} />;
         <Route path='crearproducto' element={<CreateProduct />} />;
       </Routes>
-    
+       
     </BrowserRouter>
   );
 }

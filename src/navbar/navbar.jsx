@@ -7,7 +7,7 @@ import './navcss.css';
 const NavigationBar = () => {
   return (
     <Navbar variant="dark" expand="lg"> 
-      <Navbar.Brand as={Link} to="/catalogo">
+      <Navbar.Brand as={Link} to="/">
       <img 
           src={pyt} 
           style={{ width: '35px', height: 'auto' }}
@@ -16,7 +16,7 @@ const NavigationBar = () => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" /> 
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto">
-          <Nav.Link as={Link} to="/">Login</Nav.Link>
+          <Nav.Link as={Link} to="/login">Login</Nav.Link>
           <Nav.Link as={Link} to="/courier">Courier</Nav.Link>
           <Nav.Link as={Link} to="/inventario">Inventario</Nav.Link>
           <Nav.Link as={Link} to="/payment">Pago</Nav.Link>
