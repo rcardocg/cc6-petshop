@@ -14,7 +14,7 @@ const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
     database: 'petstore',
-    password: '123456',
+    password: 'root',
     port: 5432,
 });
 
@@ -31,6 +31,34 @@ app.post('/api/clientes', async (req, res) => {
     } catch (error) {
         console.error('Error al insertar cliente:', error);
         console.log(error)
+        res.status(500).send('Error en el servidor');
+    }
+});
+
+// login
+app.post('/api/login', async (req, res) => {
+    const { email, contraseña } = req.body;
+
+    try {
+        // Consulta para verificar si el usuario existe
+        const result = await pool.query('SELECT * FROM clientes WHERE email = $1', [email]);
+        const usuario = result.rows[0];
+
+        // Verificación de usuario existente
+        if (!usuario) {
+            return res.status(400).json({ error: 'Usuario no existe' });
+        }
+
+        // Comparar la contraseña proporcionada con la almacenada
+        if (contraseña !== usuario.contraseña) {
+            return res.status(401).json({ error: 'Contraseña incorrecta' });
+        }
+
+        // Enviar respuesta de éxito
+        res.json({ tipo: usuario.tipo, mensaje: 'Login exitoso' });
+
+    } catch (error) {
+        console.error('Error al iniciar sesión:', error);
         res.status(500).send('Error en el servidor');
     }
 });
