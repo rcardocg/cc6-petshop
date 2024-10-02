@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Table, Spinner } from "react-bootstrap";
 import axios from "axios";
-import './style.css';
 
 export default function Inventory() {
     const [productos, setProductos] = useState([]);
